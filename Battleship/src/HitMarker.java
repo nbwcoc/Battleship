@@ -8,4 +8,8 @@ public class HitMarker {
 	public boolean getHit() {
 		return hit;
 	}
+	
+	public void setHit(boolean hit) {
+		this.hit = hit;
+	}
 }

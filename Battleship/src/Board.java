@@ -1,8 +1,8 @@
 import java.util.HashMap;
 
 public class Board {
-	HashMap<Integer[], Ship> shipLayer = new HashMap<>();
-	HashMap<Integer[], HitMarker> hitLayer = new HashMap<>();
+	private HashMap<Integer[], Ship> shipLayer = new HashMap<>();
+	private HashMap<Integer[], HitMarker> hitLayer = new HashMap<>();
 	
 	public boolean addHit(int x, int y) {
 		Integer[] xy = {x, y};
