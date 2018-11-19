@@ -35,9 +35,9 @@ public class Board {
 		shipArray[3] = submarine;
 		shipArray[4] = destroyer;
 		Random rand = new Random();
-		int shipCounter = 0;
-		// run our loop 5 times for the amount of ships we want placed
-		for (int x = 0; x < 5; x++) {
+		int shipCounter;
+		// run our loop for the amount of ships in the ship array (5)
+		for (int x = 0; x < shipArray.length; x++) {
 			/* create an x and y pairing for the initial placement of the ship
 			direction will be used for ship placement. 0 = North, 1 = East, 2 = South, 3 = West */
 
@@ -50,9 +50,10 @@ public class Board {
 			we will place the ship in its initial position
 			then we will find what direction we are going with the ship, and increment or decrement the coordinates until the ship length has been reached */
 			while(shipCounter < shipArray[x].getLength()) {
-				// if this specific coordinate on the board does not exist in the hashmap then we will place the ship
+				// if this specific coordinate on the board does not exist in the hashmap and it is within the bounds, then we will place the ship
 				if (!shipLayer.containsKey(xy) && checkBounds(shipArray[x],xCoord,yCoord,direction)) {
 					shipLayer.put(xy, shipArray[x]);
+					// successfully placed a ship, increment
 					shipCounter++;
 					if (direction == 0) {
 						Integer[] newXY = { xCoord, yCoord++ };
