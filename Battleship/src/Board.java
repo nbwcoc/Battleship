@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -38,20 +39,26 @@ public class Board {
 		int shipCounter;
 		// run our loop for the amount of ships in the ship array (5)
 		for (int x = 0; x < shipArray.length; x++) {
-			/* create an x and y pairing for the initial placement of the ship
-			direction will be used for ship placement. 0 = North, 1 = East, 2 = South, 3 = West */
+			/*
+			 * create an x and y pairing for the initial placement of the ship direction
+			 * will be used for ship placement. 0 = North, 1 = East, 2 = South, 3 = West
+			 */
 
 			int xCoord = rand.nextInt(10) + 1;
 			int yCoord = rand.nextInt(10) + 1;
 			int direction = rand.nextInt(4);
 			Integer[] xy = { xCoord, yCoord };
 			shipCounter = 0;
-			/*cycle through a loop that is the size of the ship
-			we will place the ship in its initial position
-			then we will find what direction we are going with the ship, and increment or decrement the coordinates until the ship length has been reached */
-			while(shipCounter < shipArray[x].getLength()) {
-				// if this specific coordinate on the board does not exist in the hashmap and it is within the bounds, then we will place the ship
-				if (!shipLayer.containsKey(xy) && checkBounds(shipArray[x],xCoord,yCoord,direction)) {
+			/*
+			 * cycle through a loop that is the size of the ship we will place the ship in
+			 * its initial position then we will find what direction we are going with the
+			 * ship, and increment or decrement the coordinates until the ship length has
+			 * been reached
+			 */
+			while (shipCounter < shipArray[x].getLength()) {
+				// if this specific coordinate on the board does not exist in the hashmap and it
+				// is within the bounds, then we will place the ship
+				if (!shipLayer.containsKey(xy) && checkBounds(shipArray[x], xCoord, yCoord, direction)) {
 					shipLayer.put(xy, shipArray[x]);
 					// successfully placed a ship, increment
 					shipCounter++;
@@ -68,8 +75,7 @@ public class Board {
 						Integer[] newXY = { xCoord--, yCoord };
 						xy = newXY;
 					}
-				}
-				else {
+				} else {
 					// if we can not place a ship, create new coordinates and direction
 					xCoord = rand.nextInt(10) + 1;
 					yCoord = rand.nextInt(10) + 1;
@@ -77,23 +83,53 @@ public class Board {
 					Integer[] newXY = { xCoord, yCoord };
 					xy = newXY;
 				}
-
 			}
 		}
-		// shipLayer.forEach((key, value) -> System.out.println(key.toString() + ":" + value.toString()));
 	}
-	
-	// this will make sure that our ship placement will not go out of the bounds of the board
+
+	// this will make sure that our ship placement will not go out of the bounds of
+	// the board
 	private boolean checkBounds(Ship ship, int xCoord, int yCoord, int direction) {
-		if(ship.getLength() + yCoord <= 10 && direction == 0)
+		if (ship.getLength() + yCoord <= 10 && direction == 0)
 			return true;
-		else if(ship.getLength() + xCoord <= 10 && direction == 1)
+		else if (ship.getLength() + xCoord <= 10 && direction == 1)
 			return true;
-		else if(ship.getLength() - yCoord >= 0 && direction == 2)
+		else if (ship.getLength() - yCoord >= 0 && direction == 2)
 			return true;
-		else if(ship.getLength() - xCoord >= 0 && direction == 3)
+		else if (ship.getLength() - xCoord >= 0 && direction == 3)
 			return true;
 		else
 			return false;
+	}
+
+	public void displayBoard() {
+		// shipLayer.forEach((key, value) -> System.out.println(Arrays.toString(key) + ":" + value.toString()));
+
+		int height = 10;
+		int width = 10;
+
+		StringBuilder grid = new StringBuilder(height * (width + 1)); 
+
+		for (int row = 0; row < height; row++) {
+			for (int column = 0; column < width; column++) {
+				Integer[] coords = { row, column };
+				if (shipLayer.get(coords) != null) {
+					grid.append(shipLayer.get(coords).toString());
+				} else {
+					grid.append('#');
+				}
+			}
+			// next row
+			grid.append('\n'); 
+		}
+
+		System.out.println(grid.toString());
+	}
+
+	public static void main(String Args[]) {
+		Board b = new Board();
+		Ship[] ships = new Ship[5];
+		b.placeShips(ships);
+		b.displayBoard();
 	}
 }
