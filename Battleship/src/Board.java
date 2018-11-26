@@ -2,11 +2,11 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class Board {
-	private HashMap<Integer[], Ship> shipLayer = new HashMap<>();
-	private HashMap<Integer[], HitMarker> hitLayer = new HashMap<>();
+	private HashMap<Coords, Ship> shipLayer = new HashMap<>();
+	private HashMap<Coords, HitMarker> hitLayer = new HashMap<>();
 
 	public boolean addHit(int x, int y) {
-		Integer[] xy = { x, y };
+		var xy = new Coords(x, y);
 
 		if (hitLayer.containsKey(xy))
 			return false;
@@ -44,7 +44,7 @@ public class Board {
 			int xCoord = rand.nextInt(10) + 1;
 			int yCoord = rand.nextInt(10) + 1;
 			int direction = rand.nextInt(4);
-			Integer[] xy = { xCoord, yCoord };
+			var xy = new Coords(xCoord, yCoord);
 			shipCounter = 0;
 			/*cycle through a loop that is the size of the ship
 			we will place the ship in its initial position
@@ -56,17 +56,13 @@ public class Board {
 					// successfully placed a ship, increment
 					shipCounter++;
 					if (direction == 0) {
-						Integer[] newXY = { xCoord, yCoord++ };
-						xy = newXY;
+					    xy.incrementY();
 					} else if (direction == 1) {
-						Integer[] newXY = { xCoord++, yCoord };
-						xy = newXY;
+						xy.incrementX();
 					} else if (direction == 2) {
-						Integer[] newXY = { xCoord, yCoord-- };
-						xy = newXY;
+						xy.decrementY();
 					} else {
-						Integer[] newXY = { xCoord--, yCoord };
-						xy = newXY;
+						xy.decrementX();
 					}
 				}
 				else {
@@ -74,8 +70,7 @@ public class Board {
 					xCoord = rand.nextInt(10) + 1;
 					yCoord = rand.nextInt(10) + 1;
 					direction = rand.nextInt(4);
-					Integer[] newXY = { xCoord, yCoord };
-					xy = newXY;
+					xy = new Coords(xCoord, yCoord);
 				}
 
 			}
