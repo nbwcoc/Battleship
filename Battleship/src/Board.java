@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -104,4 +105,35 @@ public class Board {
         else
             return false;
     }
+
+	public void displayBoard() {
+		// shipLayer.forEach((key, value) -> System.out.println(Arrays.toString(key) + ":" + value.toString()));
+
+		int height = 10;
+		int width = 10;
+
+		StringBuilder grid = new StringBuilder(height * (width + 1)); 
+
+		for (int row = 0; row < height; row++) {
+			for (int column = 0; column < width; column++) {
+				Integer[] coords = { row, column };
+				if (shipLayer.get(coords) != null) {
+					grid.append(shipLayer.get(coords).toString());
+				} else {
+					grid.append('#');
+				}
+			}
+			// next row
+			grid.append('\n'); 
+		}
+
+		System.out.println(grid.toString());
+	}
+
+	public static void main(String Args[]) {
+		Board b = new Board();
+		Ship[] ships = new Ship[5];
+		b.placeShips(ships);
+		b.displayBoard();
+	}
 }
