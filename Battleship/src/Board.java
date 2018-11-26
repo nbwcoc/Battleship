@@ -98,15 +98,29 @@ public class Board {
 	}
 
 	public void displayBoard() {
+<<<<<<< HEAD
 		int height = 10;
 		int width = 10;
+=======
+		// shipLayer.forEach((key, value) -> System.out.println(Arrays.toString(key) + ":" + value.toString()));
+
+		int height = 10;
+		int width = 10;
+
+>>>>>>> 4052c030ea03c5ee00420faded26041db4736728
 		StringBuilder grid = new StringBuilder(height * (width + 1)); 
 
 		for (int row = 0; row < height; row++) {
 			for (int column = 0; column < width; column++) {
+<<<<<<< HEAD
 				System.out.println(shipLayer.containsKey(new Coords(row, column)));
 				if (shipLayer.containsKey(new Coords(row, column))) {
 					grid.append(shipLayer.get(new Coords(row, column)).toString());
+=======
+				Integer[] coords = { row, column };
+				if (shipLayer.get(coords) != null) {
+					grid.append(shipLayer.get(coords).toString());
+>>>>>>> 4052c030ea03c5ee00420faded26041db4736728
 				} else {
 					grid.append('#');
 				}
