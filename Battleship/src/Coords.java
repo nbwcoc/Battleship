@@ -6,11 +6,6 @@ public class Coords {
     private int x;
     private int y;
     
-    public Integer[] getCoords() {
-        Integer[] xy = {x, y};
-        return xy;
-    }
-    
     @Override
     public int hashCode() {
         return x + y * 100;
@@ -30,6 +25,20 @@ public class Coords {
     
     public void decrementY() {
         y--;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+    
+    @Override
+    public boolean equals(Object thatRaw) {
+        var that = (Coords)thatRaw;
+        return that.x == this.x && that.y == this.y;
     }
     
 }
