@@ -77,14 +77,12 @@ public class Player {
 	        boolean haveValidCoords = true;
 	        
 	        for (int i = 0; i < 2; i++) {
-	            try {
-	                coords[i] = Integer.parseInt(rawCoords[i]);
-	                assert coords[i] <= 10 && coords[i] > 0; 
-	            } catch (Exception e) {
-	                System.out.println("Invalid input");
-	                haveValidCoords = false;
-	                break;
-	            }
+                coords[i] = Integer.parseInt(rawCoords[i]);
+                if (coords[i] > 10 | coords[i] <= 0) { 
+                    System.out.println("Invalid input");
+                    haveValidCoords = false;
+                    break;
+                }
 	        }
 	        
 	        if (!haveValidCoords)
