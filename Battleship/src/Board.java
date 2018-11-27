@@ -116,6 +116,7 @@ public class Board {
 				System.out.println(shipLayer.containsKey(new Coords(row, column)));
 				if (shipLayer.containsKey(new Coords(row, column))) {
 					grid.append(shipLayer.get(new Coords(row, column)).toString());
+
 				} else {
 					grid.append('#');
 				}
