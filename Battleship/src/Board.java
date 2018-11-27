@@ -98,9 +98,9 @@ public class Board {
             return true;
         else if (ship.getLength() + xCoord <= 10 && direction == 1)
             return true;
-        else if (ship.getLength() - yCoord >= 0 && direction == 2)
+        else if (yCoord - ship.getLength() >= 0 && direction == 2)
             return true;
-        else if (ship.getLength() - xCoord >= 0 && direction == 3)
+        else if (xCoord - ship.getLength() >= 0 && direction == 3)
             return true;
         else
             return false;
