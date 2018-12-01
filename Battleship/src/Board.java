@@ -4,20 +4,28 @@ import java.util.Random;
 public class Board {
 	private HashMap<Coords, Ship> shipLayer = new HashMap<>();
 	private HashMap<Coords, HitMarker> hitLayer = new HashMap<>();
+	private int shipsLeft = 5;
 
-	public boolean addHit(int x, int y) {
-		var xy = new Coords(x, y);
-
+	public boolean addHit(Coords xy) {
 		if (hitLayer.containsKey(xy))
 			return false;
 
 		Ship hitShip = shipLayer.get(xy);
-		if (hitShip != null)
+		if (hitShip != null) {
 			hitShip.hit();
+			
+			if (hitShip.isSunken())
+	            shipsLeft--;
+		}
 
+		    
 		hitLayer.put(xy, new HitMarker(hitShip != null));
 
 		return true;
+	}
+	
+	public int getShipsLeft() {
+	    return shipsLeft;
 	}
 
 	public void placeShips(Ship[] shipArray) {

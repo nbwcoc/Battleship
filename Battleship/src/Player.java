@@ -10,6 +10,7 @@ public class Player {
     private Board shipBoard = new Board();
     private Ship[] ships = new Ship[5];
     private boolean isHost = false;
+    private boolean gameOver = false;
 
     private boolean host(String x) {
         try {
@@ -59,6 +60,8 @@ public class Player {
             if (cmd.apply((argv.length > 1) ? argv[1] : ""))
                 break;
         }
+        
+        shipBoard.placeShips(ships);
     }
 
     private void shoot() {
@@ -96,14 +99,15 @@ public class Player {
             if (!haveValidCoords)
                 continue;
 
-            if (hitBoard.tryHit(coords[0], coords[1]) == null) {
+            var marker = hitBoard.tryHit(coords[0], coords[1]);
+            if (marker == null) {
                 System.out.println("You already tried there");
                 continue;
             }
 
             try {
-                opponent
-                    .reportMove(new Move(coords[0], coords[1], Move.Type.SHOT));
+                marker.setHit(opponent.reportMove(new Move(coords[0], coords[1], Move.Type.SHOT)));
+
             } catch (IOException e) {
                 System.out.println("Something happened :(");
             }
@@ -111,11 +115,46 @@ public class Player {
             break;
         }
     }
+    
+    private void getShot() {
+        Move move;
+        try {
+            move = opponent.waitMove();
+        } catch (IOException e) {
+            System.out.println("Something happened :(");
+            return;
+        }
+        
+        if (move.getType() == Move.Type.LOSS) {
+            System.out.println("You win!");
+            gameOver = true;
+            return;
+        }
+        
+        var res = shipBoard.addHit(move.getCoords());
+        if (res && shipBoard.getShipsLeft() <= 0) {
+            opponent.reportLoss();
+            System.out.print("You lose");
+            gameOver = true;
+            return;
+        }
+        
+        opponent.reportHit(res);
+    }
 
     private void mainLoop() {
-        while (true) {
+        boolean firstRun = true;
+        while (!gameOver) {
+            if (firstRun && isHost) {
+                shoot();
+            }
+            getShot();
             shoot();
+            
+            firstRun = false;
         }
+        
+        
     }
 
     public static void main(String[] args) {
