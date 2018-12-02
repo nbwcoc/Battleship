@@ -20,6 +20,6 @@ public class Ship {
 	
 	@Override
 	public String toString() {
-		return "S";
+		return Integer.toString(length);
 	}
 }
