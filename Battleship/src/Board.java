@@ -159,11 +159,4 @@ public class Board {
 		}
 		System.out.println(grid.toString());
 	}
-
-	public static void main(String Args[]) {
-		Board b = new Board();
-		Ship[] ships = new Ship[5];
-		b.placeShips(ships);
-		b.displayBoard();
-	}
 }
