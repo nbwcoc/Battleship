@@ -74,13 +74,7 @@ public class Board {
 					}
 				}
 			} else {
-				// if we can not place a ship, create new coordinates and direction
-				xCoord = rand.nextInt(10) + 1;
-				yCoord = rand.nextInt(10) + 1;
-				direction = rand.nextInt(4);
-				xy = new Coords(xCoord, yCoord);
-				// validation check did not succeed, so we need to lower the x increment to make
-				// up for the ship not being placed
+				// validation check did not succeed, so we need to lower the x increment to make up for the ship not being placed
 				x--;
 			}
 		}
@@ -104,54 +98,58 @@ public class Board {
 		var xy = new Coords(xCoord, yCoord);
 		boolean isValid = false;
 		// go length of ship
-		// if shipLayer doesn't have the coords one successful spot, increment to next potential coord
-		for(int x = 0; x < ship.getLength(); x++) {
-			if(direction == 0) {
-				if(!shipLayer.containsKey(xy)) {
+		// if shipLayer doesn't have the coords on first spot, increment
+		// as soon as it finds an invalid coord, break out of loop, return false
+		// process to select a new spot for the ship will begin
+		for (int x = 0; x < ship.getLength(); x++) {
+			if (direction == 0) {
+				if (!shipLayer.containsKey(xy)) {
 					isValid = true;
 					xy = xy.incrementY();
-				}
-				else
+				} else {
 					isValid = false;
-			}
-			else if (direction == 1) {
-				if(!shipLayer.containsKey(xy)) {
+					break;
+				}
+			} else if (direction == 1) {
+				if (!shipLayer.containsKey(xy)) {
 					isValid = true;
 					xy = xy.incrementX();
-				}
-				else
+				} else {
 					isValid = false;
-			}
-			else if(direction == 2) {
-				if(!shipLayer.containsKey(xy)) {
+					break;
+				}
+			} else if (direction == 2) {
+				if (!shipLayer.containsKey(xy)) {
 					isValid = true;
 					xy = xy.decrementY();
-				}
-				else
+				} else {
 					isValid = false;
-			}
-			else {
-				if(!shipLayer.containsKey(xy)) {
+					break;
+				}
+			} else {
+				if (!shipLayer.containsKey(xy)) {
 					isValid = true;
 					xy = xy.decrementX();
-				}
-				else
+				} else {
 					isValid = false;
+					break;
+				}
 			}
 		}
 		return isValid;
-
 	}
 
 	public void displayBoard() {
-		int height = 10;
-		int width = 10;
+		int height = 11;
+		int width = 11;
 		StringBuilder grid = new StringBuilder(height * (width + 1)); 
+			
+		System.out.println(shipLayer.entrySet());
 		
-		for (int row = 0; row < height; row++) {
-			for (int column = 0; column < width; column++) {
-				if (shipLayer.containsKey(new Coords(row, column))) {
-					grid.append(" " + shipLayer.get(new Coords(row, column)).toString() + " ");
+		for (int row = 1; row < height; row++) {
+			for (int column = 1; column < width; column++) {
+				if (shipLayer.containsKey(new Coords(column, row))) {
+					grid.append(" " + shipLayer.get(new Coords(column, row)).toString() + " ");
 				} else {
 					grid.append(" # ");
 				}
