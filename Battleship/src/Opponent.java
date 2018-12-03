@@ -64,7 +64,7 @@ public abstract class Opponent {
      */
 
     public boolean reportMove(Move move) throws IOException {
-        out.printf("move %d %d\n", move.getCoords()[0], move.getCoords()[1]);
+        out.printf("move %d %d\n", move.getCoords().getX(), move.getCoords().getY());
 
         String input = in.readLine();
         return input.equals("hit");

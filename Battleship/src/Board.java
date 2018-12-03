@@ -2,24 +2,32 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class Board {
-    private HashMap<Coords, Ship> shipLayer = new HashMap<>();
-    private HashMap<Coords, HitMarker> hitLayer = new HashMap<>();
+	private HashMap<Coords, Ship> shipLayer = new HashMap<>();
+	private HashMap<Coords, HitMarker> hitLayer = new HashMap<>();
+	private int shipsLeft = 5;
 
-    public boolean addHit(int x, int y) {
-        var xy = new Coords(x, y);
+	public boolean addHit(Coords xy) {
+		if (hitLayer.containsKey(xy))
+			return false;
 
-        if (hitLayer.containsKey(xy))
-            return false;
+		Ship hitShip = shipLayer.get(xy);
+		if (hitShip != null) {
+			hitShip.hit();
+			
+			if (hitShip.isSunken())
+	            shipsLeft--;
+		}
 
-        Ship hitShip = shipLayer.get(xy);
-        if (hitShip != null)
-            hitShip.hit();
+		    
+		hitLayer.put(xy, new HitMarker(hitShip != null));
 
-        hitLayer.put(xy, new HitMarker(hitShip != null));
-
-        return true;
-    }
-
+		return true;
+	}
+	
+	public int getShipsLeft() {
+	    return shipsLeft;
+	}
+  
     public void placeShips(Ship[] shipArray) {
         // create five new ship objects that represent each ship that can be
         // placed

@@ -14,9 +14,8 @@ public class Move {
 		this.type = type;
 	}
 	
-	public int[] getCoords() {
-		int[] xy = {x, y};
-		return xy;
+	public Coords getCoords() {
+		return new Coords(x, y);
 	}
 	
 	public Type getType() {

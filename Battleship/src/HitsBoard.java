@@ -9,6 +9,9 @@ public class HitsBoard {
 		if (hits.containsKey(xy))
 			return null;
 		
-		return hits.put(xy, new HitMarker(false));
+		var newHit = new HitMarker(false);
+		hits.put(xy,  newHit);
+		
+		return newHit;
 	}
 }
