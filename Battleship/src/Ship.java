@@ -17,4 +17,9 @@ public class Ship {
 	public boolean isSunken() {
 		return hitCount == length;
 	}
+	
+	@Override
+	public String toString() {
+		return Integer.toString(length);
+	}
 }
