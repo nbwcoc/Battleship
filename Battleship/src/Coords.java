@@ -1,3 +1,5 @@
+import java.util.HashMap;
+
 public class Coords {
     public Coords(int x, int y) {
         this.x = x;
@@ -11,20 +13,20 @@ public class Coords {
         return x + y * 100;
     }
     
-    public void incrementX() {
-        x++;
+    public Coords incrementX() {
+        return new Coords(x + 1, y);
     }
     
-    public void incrementY() {
-        y++;
+    public Coords incrementY() {
+        return new Coords(x, y + 1);
     }
     
-    public void decrementX() {
-        x--;
+    public Coords decrementX() {
+        return new Coords(x - 1, y);
     }
     
-    public void decrementY() {
-        y--;
+    public Coords decrementY() {
+        return new Coords(x, y - 1);
     }
 
     public int getX() {
@@ -41,4 +43,8 @@ public class Coords {
         return that.x == this.x && that.y == this.y;
     }
     
+    @Override
+    public String toString() {
+        return "(" + x + ", " + y + ")";
+    }
 }
