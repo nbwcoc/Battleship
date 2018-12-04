@@ -156,15 +156,20 @@ public class Board {
 		
 		for (int row = 1; row < height; row++) {
 			for (int column = 1; column < width; column++) {
-				if (shipLayer.containsKey(new Coords(column, row))) {
+				if(hitLayer.containsKey(new Coords(column, row))) {
+					grid.append(" " + hitLayer.get(new Coords(column, row)).toString() + " ");
+				}
+				else if (shipLayer.containsKey(new Coords(column, row))) {
 					grid.append(" " + shipLayer.get(new Coords(column, row)).toString() + " ");
 				} else {
 					grid.append(" # ");
 				}
 			}
 			// next row
-			grid.append('\n'); 
+			grid.append(" | " + row + "\n"); 
 		}
+		System.out.println(" 1  2  3  4  5  6  7  8  9  10");
+		System.out.println("-------------------------------");
 		System.out.println(grid.toString());
 	}
 }

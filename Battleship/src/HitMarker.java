@@ -12,4 +12,12 @@ public class HitMarker {
 	public void setHit(boolean hit) {
 		this.hit = hit;
 	}
+	
+	@Override
+	public String toString() {
+		if(hit == true)
+			return "X";
+		else
+			return "O";
+	}
 }

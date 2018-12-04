@@ -98,7 +98,6 @@ public class Player {
 
             if (!haveValidCoords)
                 continue;
-
             var marker = hitBoard.tryHit(coords[0], coords[1]);
             if (marker == null) {
                 System.out.println("You already tried there");
@@ -149,6 +148,7 @@ public class Player {
                 shoot();
             }
             getShot();
+            shipBoard.displayBoard();
             shoot();
             
             firstRun = false;
