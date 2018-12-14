@@ -1,6 +1,6 @@
 import java.util.HashMap;
 
-public class HitsBoard {
+public class HitsBoard extends AbstractBoard {
 	private HashMap<Coords, HitMarker> hits = new HashMap<>();
 	
 	public HitMarker tryHit(int x, int y) {
@@ -13,5 +13,9 @@ public class HitsBoard {
 		hits.put(xy,  newHit);
 		
 		return newHit;
+	}
+	
+	public void displayBoard() {
+	    displayImpl((Coords c) -> {return getMarker(hits, c);});
 	}
 }

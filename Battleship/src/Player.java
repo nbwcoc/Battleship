@@ -148,6 +148,7 @@ public class Player {
                 shoot();
             }
             getShot();
+            hitBoard.displayBoard();
             shipBoard.displayBoard();
             shoot();
             
