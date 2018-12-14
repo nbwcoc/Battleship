@@ -22,7 +22,7 @@ public class Board extends AbstractBoard {
 
         hitLayer.put(xy, new HitMarker(hitShip != null));
 
-        return true;
+        return hitShip != null;
     }
 
     public int getShipsLeft() {
